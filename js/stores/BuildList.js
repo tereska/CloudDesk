@@ -7,7 +7,7 @@ Ext.define('Stores.BuildList', {
 		type: 'ajax',
 		url: '/api/build/list',
 		extraParams: {
-			env: 'INT'
+			env: 'PROD'
 		},
 		reader: {
 			type: 'json'

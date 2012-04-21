@@ -86,7 +86,6 @@ Ext.define('MyDesktop.Deploy', {
                                         id: 'btnInt',
                                         xtype: 'button',
                                         enableToggle: true,
-                                        pressed: true,
                                         text: 'INT',
                                         toggleGroup: 'env'
                                     },
@@ -94,6 +93,7 @@ Ext.define('MyDesktop.Deploy', {
                                         id: 'btnProd',
                                         xtype: 'button',
                                         enableToggle: true,
+										pressed: true,
                                         text: 'PROD',
                                         toggleGroup: 'env'
                                     }

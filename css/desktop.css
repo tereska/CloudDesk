@@ -1,7 +1,7 @@
 
 body .x-tree-panel .x-grid-row .x-grid-cell-inner img.x-tree-expander  {
     margin-top: -2px;
-    height: 20px;
+    height: 21px;
 }
 
 body.x-gecko .x-tree-panel .x-grid-row .x-grid-cell-inner img.x-tree-expander  {
@@ -349,8 +349,8 @@ body {
 	}
 	#loading {
 		position: absolute;
-		top: 40%;
-		left: 35%;
+		top: 5%;
+		left: 3%;
 		z-index: 2;
 	}
 	#loading span {

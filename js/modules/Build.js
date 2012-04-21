@@ -10,6 +10,8 @@ Ext.define('MyDesktop.Build', {
     title: 'Services Builder',
     iconCls: 'notepad',
     interval: null,
+	maximizable: false,
+	resizable: false,
     
     listeners: {
       beforeclose: function(panel){
