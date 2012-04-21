@@ -1,0 +1,47 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+  <head>
+      <title>DL CloudDesk</title>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf8">
+      <link rel="stylesheet" type="text/css" href="extjs/resources/css/ext-all.css">
+      <link rel="stylesheet" type="text/css" href="css/desktop.css">
+      <link rel="stylesheet" type="text/css" href="js/ux/statusbar/css/statusbar.css">
+  </head>
+  
+  <body>
+        <div id="loading-mask"></div>
+        <div id="loading">
+            <span id="loading-message">Loading. Please wait...</span>
+        </div>
+  
+      <script type="text/javascript" src="extjs/ext.js"></script>
+      
+      <script type="text/javascript">
+      
+        Ext.Loader.setConfig({
+            disableCaching: false,
+            enabled: true,
+            paths: {
+              'Ext.ux': 'js/ux',
+              'MyDesktop': 'js/modules',
+              'Stores': 'js/stores'
+            }
+        });
+        
+        Ext.Loader.require('MyDesktop.App');
+
+        var myDesktopApp;
+        
+        Ext.Loader.onReady(function () {
+            var loadingMask = Ext.get('loading-mask');
+      		var loading = Ext.get('loading');
+            loading.remove();
+            loadingMask.remove();
+            myDesktopApp = new MyDesktop.App();
+        });
+      </script>
+      
+      <div id="poweredby"><div></div></div>
+  
+  </body>
+</html>
