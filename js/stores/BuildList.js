@@ -15,7 +15,7 @@ Ext.define('Stores.BuildList', {
 	},
 	root: {
 		text: 'Services',
-		id: 'root',
+		id: 'root', 
 		expanded: true
 	},
 	folderSort: true,

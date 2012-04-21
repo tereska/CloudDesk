@@ -130,6 +130,7 @@ Ext.define('MyDesktop.Deploy', {
                         items: [
                             {
                                 xtype: 'container',
+								itemId: 'ctnWelcome',
                                 flex: 1,
                                 items: [
                                      {
@@ -140,6 +141,7 @@ Ext.define('MyDesktop.Deploy', {
                             },
                             {
                                 xtype: 'container',
+								itemId: 'ctnAppInfo',
                                 flex: 1,
                                 items: [
                                   {
@@ -247,6 +249,7 @@ Ext.define('MyDesktop.Deploy', {
                             },
                             {
                                 xtype: 'container',
+								itemId: 'ctnAppStats',
                                 flex: 1,
                                 autoScroll: true,
                                 items: [
@@ -462,7 +465,6 @@ Ext.define('MyDesktop.Deploy', {
                       Ext.getCmp('pnlService').enable();
                       var jsonData = Ext.JSON.decode(result.responseText);
                       Ext.getCmp('chbActivated').resumeEvents();
-                      console.log(jsonData);
                       Ext.getCmp('basic-statusbar').setStatus({
                         text: 'Ready',
                         iconCls: 'x-status-valid'
@@ -518,7 +520,6 @@ Ext.define('MyDesktop.Deploy', {
                   success: function ( result, request ) {
                       Ext.getCmp('pnlService').enable();
                       var jsonData = Ext.JSON.decode(result.responseText);
-                      console.log(jsonData);
                       Ext.getCmp('basic-statusbar').setStatus({
                         text: 'Ready',
                         iconCls: 'x-status-valid'
@@ -556,10 +557,32 @@ Ext.define('MyDesktop.Deploy', {
             
             
             Ext.getCmp('btnRefresh').on('click', function(button, e, options) {
-              var appName = Ext.getCmp('txtAppName').getRawValue() + '_' +
+			
+				var activeItem = Ext.getCmp('pnlService').getLayout().getActiveItem().itemId;
+				if (activeItem == 'ctnAppInfo') {
+					var appName = Ext.getCmp('txtAppName').getRawValue() + '_' +
                             Ext.getCmp('txtAppVersion').getRawValue() + '.' +
                             Ext.getCmp('txtAppBuild').getRawValue();
-              updateAppInfo(appName);
+                    updateAppInfo(appName);
+				} else if (activeItem == 'ctnAppStats') {
+					var appName = Ext.getCmp('txtServiceName').getRawValue();
+                   
+                    Ext.getCmp('gridAppInitialized').getStore().removeAll();
+					Ext.getCmp('gridAppBuilds').getStore().removeAll();
+					Ext.getCmp('gridAppInstances').getStore().removeAll();
+					
+                    Ext.getCmp('gridAppInitialized').getStore().getProxy().extraParams.env = getEnv();
+                    Ext.getCmp('gridAppInitialized').getStore().getProxy().extraParams.node = appName;
+                    Ext.getCmp('gridAppInitialized').getStore().load();
+                    
+                    Ext.getCmp('gridAppBuilds').getStore().getProxy().extraParams.env = getEnv();
+                    Ext.getCmp('gridAppBuilds').getStore().getProxy().extraParams.node = appName;
+                    Ext.getCmp('gridAppBuilds').getStore().load();
+                    
+                    Ext.getCmp('gridAppInstances').getStore().getProxy().extraParams.env = getEnv();
+                    Ext.getCmp('gridAppInstances').getStore().getProxy().extraParams.node = appName;
+                    Ext.getCmp('gridAppInstances').getStore().load();
+				}
             });
             
             
@@ -611,8 +634,6 @@ Ext.define('MyDesktop.Deploy', {
                                     text: 'Ready',
                                     iconCls: 'x-status-valid'
                                   });
-                           
-                                  console.log(jsonData);
                              },
                              failure: function ( result, request ) {
                                  var jsonData = Ext.JSON.decode(result.responseText);
