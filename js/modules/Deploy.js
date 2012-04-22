@@ -109,7 +109,11 @@ Ext.define('MyDesktop.Deploy', {
                         width: 200,
                         rootVisible: true,
                         //title: 'My Tree Panel',
-                        store: Ext.create('Stores.BuildList')
+                        store: Ext.create('Stores.BuildList'),
+                        scroll          : false,
+                        viewConfig      : {
+                          style           : { overflow: 'auto', overflowX: 'hidden' }
+                        },
                     },
                     {
                         id: 'pnlService',
@@ -278,6 +282,10 @@ Ext.define('MyDesktop.Deploy', {
                                               id: 'gridAppInstances',
                                               xtype: 'gridpanel',
                                               width: 340,
+                                              scroll          : false,
+                                              viewConfig      : {
+                                                style           : { overflow: 'auto', overflowX: 'hidden' }
+                                              },
                                               store: Ext.create('Stores.AppInfoActive'),
                                               frameHeader: false,
                                               preventHeader: true,
@@ -328,6 +336,10 @@ Ext.define('MyDesktop.Deploy', {
                                           {
                                               id: 'gridAppInitialized',
                                               xtype: 'gridpanel',
+                                              scroll          : false,
+                                              viewConfig      : {
+                                                style           : { overflow: 'auto', overflowX: 'hidden' }
+                                              },
                                               width: 165,
                                               store: Ext.create('Stores.AppInfoInitialized'),
                                               frameHeader: false,
@@ -350,6 +362,10 @@ Ext.define('MyDesktop.Deploy', {
                                           {
                                               id: 'gridAppBuilds',
                                               xtype: 'gridpanel',
+                                              scroll          : false,
+                                              viewConfig      : {
+                                                style           : { overflow: 'auto', overflowX: 'hidden' }
+                                              },
                                               width: 165,
                                               store: Ext.create('Stores.AppInfoBuilds'),
                                               frameHeader: false,
@@ -686,8 +702,11 @@ Ext.define('MyDesktop.Deploy', {
                     Ext.getCmp('pnlService').getLayout().setActiveItem(2);
                    
                     Ext.getCmp('gridAppInitialized').getStore().removeAll();
+                    Ext.getCmp('gridAppInitialized').determineScrollbars();
 					Ext.getCmp('gridAppBuilds').getStore().removeAll();
+          Ext.getCmp('gridAppBuilds').determineScrollbars();                                                   
 					Ext.getCmp('gridAppInstances').getStore().removeAll();
+           Ext.getCmp('gridAppInstances').determineScrollbars();                                                     
 					
                     Ext.getCmp('gridAppInitialized').getStore().getProxy().extraParams.env = getEnv();
                     Ext.getCmp('gridAppInitialized').getStore().getProxy().extraParams.node = record.get('id');
